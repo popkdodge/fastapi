@@ -2,7 +2,8 @@ from fastapi import FastAPI
 import uvicorn
 from typing import Dict
 from pydantic import BaseModel
-
+import json
+import numpy
 
 app = FastAPI()
 
@@ -27,7 +28,7 @@ class Pred(BaseModel):
 
 @app.get("/")
 def home():
-    return {"message":"Hello TutLinks.com"}
+    return {"message":"Hello! got to https://testapifortesting.herokuapp.com/docs "}
 
 @app.post('/predict')
 def predict(pred: Pred):
@@ -38,8 +39,8 @@ def predict(pred: Pred):
     model = joblib.load('models/prediction.pkl')
     response  = round(model.predict(test_model_data)[0],2)
     price_list = ['Prices']
-    response_list = [f'{round(response,2)}']
+    response_list = [round(response,2)]
     response_dict = dict(zip(price_list, response_list))
     response_json = json.dumps(response_dict)
-    return response_json
+    return f'{str(response_json)}'
 
