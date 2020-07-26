@@ -22,7 +22,7 @@ class Pred(BaseModel):
     bedrooms: float
     beds: float
     dryer: bool
-    Parking: bool
+    parking: bool
     descriptionlen: int
 
 
