@@ -9,21 +9,21 @@ app = FastAPI()
 
 #domain where this api is hosted for example : localhost:5000/docs to see swagger documentation automagically generated.
 class Pred(BaseModel):
-    property_type: str
-    room_type: str
+    propertytype: str
+    roomtype: str
     accomodates: int
     bathrooms: float
-    clean_fee: bool
+    cleanfee: bool
     city: str
     latitude: float
     longitude: float
-    review_scores_rating: float
+    reviewscoresrating: float
     zipcode: int
     bedrooms: float
     beds: float
-    Dryer: bool
+    dryer: bool
     Parking: bool
-    Description_Len: int
+    descriptionlen: int
 
 
 @app.get("/")
@@ -37,15 +37,15 @@ def predict(pred: Pred):
     import joblib
     import pickle
     test_model_data = pd.read_csv('models/sample_pred.csv')
-    test_model_data.property_type = pred.property_type
-    test_model_data.room_type = pred.room_type
+    test_model_data.property_type = pred.propertytype
+    test_model_data.room_type = pred.roomtype
     test_model_data.accomodates = pred.accomodates
     test_model_data.bathrooms = pred.bathrooms
-    test_model_data.clean_fee = pred.clean_fee
+    test_model_data.clean_fee = pred.cleanfee
     test_model_data.city = pred.city
     test_model_data.zipcode = pred.zipcode
     test_model_data.bedrooms = pred.bedrooms
-    test_model_data.Description_Len = pred.Description_Len
+    test_model_data.Description_Len = pred.descriptionlen
 
     model = joblib.load('models/prediction.pkl')
     response  = round(model.predict(test_model_data)[0],2)
