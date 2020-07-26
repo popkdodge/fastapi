@@ -3,7 +3,7 @@ import uvicorn
 from typing import Dict
 from pydantic import BaseModel
 import json
-import numpy
+
 
 app = FastAPI()
 
@@ -33,11 +33,23 @@ def home():
 @app.post('/predict')
 def predict(pred: Pred):
     import pandas as pd
+    import numpy as np
     import joblib
     import pickle
     test_model_data = pd.read_csv('models/sample_pred.csv')
+    test_model_data.property_type = pred.property_type
+    test_model_data.room_type = pred.room_type
+    test_model_data.accomodates = pred.accomodates
+    test_model_data.bathrooms = pred.bathrooms
+    test_model_data.clean_fee = pred.clean_fee
+    test_model_data.city = pred.city
+    test_model_data.zipcode = pred.zipcode
+    test_model_data.bedrooms = pred.bedrooms
+    test_model_data.Description_Len = pred.Description_Len
+
     model = joblib.load('models/prediction.pkl')
     response  = round(model.predict(test_model_data)[0],2)
+    response = np.expm1(response)
     price_list = ['Prices']
     response_list = [round(response,2)]
     response_dict = dict(zip(price_list, response_list))
