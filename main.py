@@ -7,6 +7,23 @@ from pydantic import BaseModel
 app = FastAPI()
 
 #domain where this api is hosted for example : localhost:5000/docs to see swagger documentation automagically generated.
+class Pred(BaseModel):
+    property_type: str
+    room_type: str
+    accomodates: int
+    bathrooms: float
+    clean_fee: bool
+    city: str
+    latitude: float
+    longitude: float
+    review_scores_rating: float
+    zipcode: int
+    bedrooms: float
+    beds: float
+    Dryer: bool
+    Parking: bool
+    Description_Len: int
+
 
 @app.get("/")
 def home():
