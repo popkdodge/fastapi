@@ -37,15 +37,11 @@ def predict(pred: Pred):
     import joblib
     import pickle
     test_model_data = pd.read_csv('models/sample_pred.csv')
-    test_model_data.property_type = pred.propertytype
     test_model_data.room_type = pred.roomtype
     test_model_data.accomodates = pred.accomodates
     test_model_data.bathrooms = pred.bathrooms
-    test_model_data.clean_fee = pred.cleanfee
-    test_model_data.city = pred.city
     test_model_data.zipcode = pred.zipcode
     test_model_data.bedrooms = pred.bedrooms
-    test_model_data.Description_Len = pred.descriptionlen
 
     model = joblib.load('models/prediction.pkl')
     response = round(model.predict(test_model_data)[0], 2)
