@@ -7,28 +7,27 @@ import json
 
 app = FastAPI()
 
-#domain where this api is hosted for example : localhost:5000/docs to see swagger documentation automagically generated.
+# domain where this api is hosted for example : localhost:5000/docs to see swagger documentation automagically generated.
+
+
 class Pred(BaseModel):
-    propertytype: str
     roomtype: str
     accomodates: int
     bathrooms: float
-    cleanfee: bool
     city: str
     latitude: float
     longitude: float
     reviewscoresrating: float
-    zipcode: int
     bedrooms: float
-    beds: float
-    dryer: bool
-    parking: bool
-    descriptionlen: int
+    beds: str
+    tv: int
+    zipcode: int
 
 
 @app.get("/")
 def home():
-    return {"message":"Hello! got to https://testapifortesting.herokuapp.com/docs "}
+    return {"message": "Hello! got to https://testapifortesting.herokuapp.com/docs "}
+
 
 @app.post('/predict')
 def predict(pred: Pred):
@@ -48,11 +47,10 @@ def predict(pred: Pred):
     test_model_data.Description_Len = pred.descriptionlen
 
     model = joblib.load('models/prediction.pkl')
-    response  = round(model.predict(test_model_data)[0],2)
+    response = round(model.predict(test_model_data)[0], 2)
     response = np.expm1(response)
     price_list = ['Prices']
-    response_list = [round(response,2)]
+    response_list = [round(response, 2)]
     response_dict = dict(zip(price_list, response_list))
     response_json = json.dumps(response_dict)
     return f'{str(response_json)}'
-
