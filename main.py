@@ -21,6 +21,7 @@ class Pred(BaseModel):
     bedrooms: float
     beds: str
     tv: int
+    streetaddress: str
     zipcode: int
 
 
