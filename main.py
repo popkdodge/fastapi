@@ -67,12 +67,11 @@ def predict2(pred: Pred):
     elif pred.roomtype == 'Private room':
         test_model_data.room_type = 2.0
     else:
-        test_model_data.room_type = 3.0
+        test_model_data.room_type = 1.0
 
     # Applying
     test_model_data.accomodates = pred.accomodates
     test_model_data.bathrooms = pred.bathrooms
-    test_model_data.city = pred.city
     test_model_data.latitude = pred.latitude
     test_model_data.longitude = pred.longitude
     test_model_data.zipcode = 0.0
