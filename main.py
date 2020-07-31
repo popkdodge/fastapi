@@ -92,7 +92,7 @@ def predict2(pred: Pred):
         pass
 
     # This is where the model is used.
-    model = tf.keras.models.load_model('kristine_model_0')
+    model = tf.keras.models.load_model('kristine_model_1')
     response = round(model.predict(test_model_data)[[0]][0][0], 2)
     response = np.expm1(response)
     price_list = ['Prices']
